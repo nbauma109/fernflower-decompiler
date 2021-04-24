@@ -1,5 +1,15 @@
 // Copyright 2000-2021 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.frgaal:compiler-gradle-plugin:15.0.0"
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'org.frgaal.compiler'
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
@@ -16,9 +26,14 @@ artifacts {
     archives javadocJar
 }
 
+targetCompatibility = '1.8'
+sourceCompatibility = '15'
+
 compileJava {
-  sourceCompatibility '11'
-  targetCompatibility '11'
+    options.compilerArgs << '-Xlint:deprecation' << '--enable-preview'
+}
+compileTestJava {
+    options.compilerArgs << '-Xlint:deprecation' << '--enable-preview'
 }
 
 sourceSets {
@@ -30,6 +45,7 @@ repositories { mavenCentral() }
 dependencies {
   testCompile 'junit:junit:4.12'
   testCompile 'org.assertj:assertj-core:3.12.2'
+  implementation 'org.frgaal:compiler:15.0.0'
 }
 
 jar {
