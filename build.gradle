@@ -1,4 +1,4 @@
-// Copyright 2000-2019 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+// Copyright 2000-2021 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 apply plugin: 'java'
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -17,8 +17,8 @@ artifacts {
 }
 
 compileJava {
-  sourceCompatibility '1.8'
-  targetCompatibility '1.8'
+  sourceCompatibility '11'
+  targetCompatibility '11'
 }
 
 sourceSets {
@@ -26,7 +26,7 @@ sourceSets {
   test.java.srcDirs 'test'
 }
 
-repositories { jcenter() }
+repositories { mavenCentral() }
 dependencies {
   testCompile 'junit:junit:4.12'
   testCompile 'org.assertj:assertj-core:3.12.2'
